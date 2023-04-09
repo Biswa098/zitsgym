@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import React, {  useState } from 'react';
 import { Box, Button, Stack, TextField, Typography } from "@mui/material";
 import Pagination from "@mui/material/Pagination";
 import DietCard from './DietCard.jsx'
+import HorizontalScrollbarexercise from "./HorizontalScrollbarexercise.js";
 const Diets = ({ apidata }) => {
   const [data] = useState(apidata);
   const [diet, setDiet] = useState(apidata);
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [exercisesPerPage] = useState(9);
+  const [exercisesPerPage] = useState(8);
   // Pagination
   const indexOfLastExercise = currentPage * exercisesPerPage;
   const indexOfFirstExercise = indexOfLastExercise - exercisesPerPage;
@@ -15,27 +16,53 @@ const Diets = ({ apidata }) => {
     indexOfFirstExercise,
     indexOfLastExercise
   );
+// console.log(currentDiets);
   const paginate = (event, value) => {
     setCurrentPage(value);
 
     window.scrollTo({ top: 800, behavior: "smooth" });
   };
+  const sort_by = (field, reverse, primer) => {
+
+    const key = primer ?
+      function(x) {
+        return primer(x[field])
+      } :
+      function(x) {
+        return x[field]
+      };
+  
+    reverse = !reverse ? 1 : -1;
+  
+    return function(a, b) {
+      return a = key(a), b = key(b), reverse * ((a > b) - (b > a));
+    }
+  };
   const handleSearch = () => {
     if (search) {
       if (search === "all") {
         setDiet(data);
-      } else {
+      }
+      else if (search === "protien") {
+          setDiet(data.sort(sort_by('protein_g', true, parseInt)));
+      }
+      else if (search === "carb"||search === "carbohydrate") {
+          setDiet(data.sort(sort_by('carbohydrates_total_g', true, parseInt)));
+      }
+      else if (search === "fat") {
+          setDiet(data.sort(sort_by('fat_total_g', true, parseInt)));
+      }
+      else {
         const searchedDiet = data.filter((item) =>
           item.name.toLowerCase().includes(search)
         );
         setDiet(searchedDiet);
       }
 
-      window.scrollTo({ top: 1700, left: 100, behavior: "smooth" });
+      window.scrollTo({ top: 900, left: 100, behavior: "smooth" });
       setSearch("");
     }
   };
-
   return (
     <Stack alignItems="center" mt="37px" justifyContent="center" p="20px">
       <Typography

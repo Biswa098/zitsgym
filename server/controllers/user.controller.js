@@ -2,7 +2,7 @@ import User from "../mongodb/models/user.js";
 
 const createUser = async (req, res) => {
     try {
-        const { name, email, phone, age, bw, height } = req.body;
+        const { name, email, phone, age, bw, height ,pic ,sex} = req.body;
 
         const userExists = await User.findOne({ email });
 
@@ -14,7 +14,9 @@ const createUser = async (req, res) => {
             phone, 
             age, 
             bw, 
-            height
+            height,
+            pic,
+            sex
         });
 
         res.status(200).json(newUser);
@@ -25,17 +27,17 @@ const createUser = async (req, res) => {
 const editUserInfoByID = async (req, res) => {
     try {
         const { id } = req.params;
-        const { name, email, phone, age, bw, height } = req.body;
+        const { name,  phone, age, bw, height,sex } = req.body;
 
-        const userExists = await User.findOne({ _id: id });
+        const userExists = await User.findOne({ email: id });
 
         if (userExists) {
             userExists.name=name; 
-            userExists.email=email; 
             userExists.phone=phone; 
             userExists.age=age; 
             userExists.bw=bw; 
             userExists.height=height;
+            userExists.sex=sex;
             userExists.save();
             res.status(201).json(userExists);
         };
@@ -47,8 +49,7 @@ const editUserInfoByID = async (req, res) => {
 const getUserInfoByID = async (req, res) => {
     try {
         const { id } = req.params;
-
-        const user = await User.findOne({ phone: id });
+        const user = await User.findOne({ email: id });
 
         if (user) {
             res.status(200).json(user);

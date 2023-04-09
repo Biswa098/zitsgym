@@ -9,7 +9,7 @@ const ExerciseCard = ({ exercise }) => (
   color= 'white'
   borderRadius={"5%"}
  >
-  <Link className="exercise-card" to={`/exercise/${exercise.id}`} style={{textDecoration: 'inherit'}}>
+  <Link  className="exercise-card" to={`/exercise/${exercise.id}`} style={{textDecoration: 'inherit'}}>
     <img src={exercise.gifUrl} alt={exercise.name} loading="lazy" />
     <Stack direction="row">
       <Button sx={{ ml: '21px', color: '#fff', background: '#FFA9A9', fontSize: '14px', borderRadius: '20px', textTransform: 'capitalize' }}>

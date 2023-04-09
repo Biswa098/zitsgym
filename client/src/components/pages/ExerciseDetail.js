@@ -15,7 +15,7 @@ const ExerciseDetail = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+   window.scrollTo({ top: 800, left: 100, behavior: 'smooth' })
 
     const fetchExercisesData = () => {
 

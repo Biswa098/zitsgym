@@ -11,9 +11,12 @@ import Profile from "./components/pages/Profile";
 import Program from "./components/programs/Program.jsx";
 import Reason from "./components/Reasons/Reason";
 import Testimonial from "./components/Testimonials/Testimonial";
+import RegisterForm from './components/pages/RegisterForm';
 function App() {
   const [ apidata1, setApidata1 ] = useState([]);
   const [ apidata2, setApidata2 ] = useState([]);
+  const [check, setCheck] = useState(true);
+  const [email, setEmail] = useState("");
   useEffect(() => {
     async function fetchExercises() {
       const res = await fetch("https://zitsgym.onrender.com/api/v2/exercises");
@@ -48,7 +51,8 @@ function App() {
           <Route path="/exercises" element={<Exercises apidata={apidata1} />} />
           <Route path="/exercise/:id" element={<ExerciseDetail />} />
           <Route path="/diets" element={<Diets apidata={apidata2} />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/edit" element={< RegisterForm email={email} />} />
+          <Route path="/profile" element={<Profile  check={check} setCheck={setCheck} email={email} setEmail={setEmail} />} />
         </Routes>
       <Footer />
     </div>

@@ -18,7 +18,7 @@ const DietCard = ({ diet }) => (
     image={diet.img}
     alt={"alt"}
     title={diet.name}
-    sx={{ padding: "1em 1em 0 1em", objectFit: "contain" }}
+    sx={{ padding: 0, objectFit: "contain" }}
   />
       <CardContent style={{backgroundColor:'#111'}}>
         <Typography gutterBottom variant="h5" component="div" color='white'>
@@ -26,6 +26,7 @@ const DietCard = ({ diet }) => (
         </Typography>
         <Typography variant="body2"  fontWeight={700} color='var(--orange)'>
          {diet.serving_size_g}gm of {diet.name} have <br/>
+         <Button size="small" className='btn shake' style={{color:'#FFA500'}}>Protien:<span style={{color:'white'}}>&nbsp;{diet.protein_g}</span></Button> 
          <Button size="small" className='btn shake' style={{color:'#FFA500'}}>Calories:<span style={{color:'white'}}>&nbsp;{diet.calories}</span></Button> 
          <Button size="small" className='btn shake' style={{color:'var(--orange)'}}>Fat:<span style={{color:'white'}}>&nbsp;{diet.fat_total_g}</span></Button> 
          <Button size="small" className='btn shake' style={{color:'#FFA500'}}>Sodium:<span style={{color:'white'}}>&nbsp;{diet.sodium_mg}</span></Button> 

@@ -6,19 +6,19 @@ export const testimonialsData = [
   {
     image: image1,
     review:
-      "I made the right choice by choosing the ZitsGym and by choosing the right plan and program I already achieved my ideal body!",
+      "I made the right choice by choosing THE FITNESS ZONE and by choosing the right plan and program I already achieved my ideal body!",
     name: 'MATHEW HENDRICKSON',
     status : 'ENTREPRENEUR'
   },
   {
     image: image2,
-    review: "I made the right choice by choosing the ZitsGym and by choosing the right plan and program I already achieved my ideal body!",
+    review: "I made the right choice by choosing THE FITNESS ZONE and by choosing the right plan and program I already achieved my ideal body!",
     name: 'JOHN KEVIN',
     status: 'USER'
   },
   {
     image : image3,
-    review:"I made the right choice by choosing the ZitsGym and by choosing the right plan and program I already achieved my ideal body!",
+    review:"I made the right choice by choosing THE FITNESS ZONE and by choosing the right plan and program I already achieved my ideal body!",
     name: 'FRANKLIN',
     status: "GYM RAT"
   }
