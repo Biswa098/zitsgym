@@ -12,6 +12,11 @@ import Program from "./components/programs/Program.jsx";
 import Reason from "./components/Reasons/Reason";
 import Testimonial from "./components/Testimonials/Testimonial";
 import RegisterForm from './components/pages/RegisterForm';
+import Login from './components/pages/Login';
+import Resister from './components/pages/Resister';
+import Otp from './components/pages/Otp'
+import Error from './components/pages/Error';
+import 'react-toastify/dist/ReactToastify.css';
 function App() {
   const [ apidata1, setApidata1 ] = useState([]);
   const [ apidata2, setApidata2 ] = useState([]);
@@ -37,8 +42,12 @@ function App() {
     <div className="App">
       <Hero />
         <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/resister" element={<Resister />} />
+          <Route path="/otp" element={<Otp />} />
+          <Route path="/error" element={<Error />} />
           <Route
-            path="/"
+            path="/home"
             element={
               <>
                 <Program />

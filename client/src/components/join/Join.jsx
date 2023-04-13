@@ -1,8 +1,21 @@
-import React from "react";
+import React, { useState,useEffect } from "react";
 import { useRef } from "react";
 import "./Join.css";
 import emailjs from "@emailjs/browser";
+import { useNavigate } from "react-router-dom";
 const Join = () => {
+  const navigate = useNavigate();
+  const userValid = ()=>{
+    let token = localStorage.getItem("userdbtoken");
+    if(token){
+      console.log(token)
+    }else{
+      navigate("/error")
+    }
+  }
+  useEffect(()=>{
+    userValid();
+  },[]);
   const form = useRef();
   const sendEmail = (e) => {
     e.preventDefault();

@@ -11,7 +11,7 @@ dotenv.config();
 
 const server = express();
 server.use(cors());
- server.use(express.json({ limit: "50mb" }));
+server.use(express.json({ limit: "50mb" }));
 
 server.use("/api/v2/users", userRouter);
 server.use("/api/v2/exercises", exerciseRouter);

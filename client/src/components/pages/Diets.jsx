@@ -1,9 +1,22 @@
-import React, {  useState } from 'react';
+import React, {  useState,useEffect } from 'react';
 import { Box, Button, Stack, TextField, Typography } from "@mui/material";
 import Pagination from "@mui/material/Pagination";
 import DietCard from './DietCard.jsx'
 import HorizontalScrollbarexercise from "./HorizontalScrollbarexercise.js";
+import { useNavigate } from "react-router-dom";
 const Diets = ({ apidata }) => {
+  const navigate = useNavigate();
+  const userValid = ()=>{
+    let token = localStorage.getItem("userdbtoken");
+    if(token){
+      console.log(token)
+    }else{
+      navigate("/error")
+    }
+  }
+  useEffect(()=>{
+    userValid();
+  },[]);
   const [data] = useState(apidata);
   const [diet, setDiet] = useState(apidata);
   const [search, setSearch] = useState("");

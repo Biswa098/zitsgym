@@ -6,7 +6,6 @@ import HorizontalScrollbar from "./HorizontalScrollbar";
 const SearchExercises = ({ exercises, setExercises, bodyPart, setBodyPart }) => {
   const [search, setSearch] = useState("");
   const [bodyParts, setBodyParts] = useState([
-    "all",
     "back",
     "cardio",
     "chest",

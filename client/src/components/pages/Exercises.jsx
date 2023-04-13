@@ -1,11 +1,24 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import ExerciseCard from './ExerciseCard'
 import { Box, Stack, Typography } from "@mui/material";
 import Pagination from "@mui/material/Pagination";
 import Loader from "./Loader.js";
 import SearchExercises from "./SearchExercises";
+import { useNavigate } from "react-router-dom";
 
 const Exercises = ({apidata}) => {
+  const navigate = useNavigate();
+  const userValid = ()=>{
+    let token = localStorage.getItem("userdbtoken");
+    if(token){
+      console.log(token)
+    }else{
+      navigate("/error")
+    }
+  }
+  useEffect(()=>{
+    userValid();
+  },[]);
   const [currentPage, setCurrentPage] = useState(1);
   const [exercisesPerPage] = useState(9);
   const [exercises,setExercises] = useState(apidata);

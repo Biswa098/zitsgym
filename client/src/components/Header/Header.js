@@ -30,7 +30,7 @@ const Header = () => {
         </div>
       ) : (
         <ul className="header-menu" style={{borderRadius:'6%'}}>
-          <li onClick={()=>{window.scrollTo({ top: 0, left: 100, behavior: 'smooth' });setMenu(false)}}><Link to="/" style={{ color: 'inherit', textDecoration: 'inherit'}}>Home</Link></li>
+          <li onClick={()=>{window.scrollTo({ top: 0, left: 100, behavior: 'smooth' });setMenu(false)}}><Link to="/home" style={{ color: 'inherit', textDecoration: 'inherit'}}>Home</Link></li>
           <li onClick={handelclick}><Link to="/exercises" style={{ color: 'inherit', textDecoration: 'inherit'}}>Exercises</Link></li>
           <li onClick={handelclick}><Link to="/diets" style={{ color: 'inherit', textDecoration: 'inherit'}}>Diets</Link></li>
           <li onClick={handelclick}><Link to="/profile" style={{ color: 'inherit', textDecoration: 'inherit'}}>Profile</Link></li>
