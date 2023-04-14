@@ -16,7 +16,7 @@ export const programsData = [
     ),
     heading: "Strength Training",
     details:
-      "In this program, you are trained to improve your strength through many exercises.",
+      "Strength training involves the performance of physical exercises that are designed to improve strength and endurance.",
   },
   {
     image: <svg width="16" height="17" viewBox="0 0 16 17"  xmlns="http://www.w3.org/2000/svg">
@@ -29,7 +29,7 @@ export const programsData = [
     </svg>,
     heading: "Cardio Training",
     details:
-      "In this program, you are trained to do sequential moves in range of 20 until 30 minutes.",
+      "Cardio exercise, which is sometimes referred to as aerobic exercise, is any rhythmic activity that raises your heart rate into your target heart rate zone.",
   },
   {
     image: <svg width="12" height="16" viewBox="0 0 12 16"  xmlns="http://www.w3.org/2000/svg">
@@ -38,7 +38,7 @@ export const programsData = [
     ,
     heading: "Fat Burning",
     details:
-      "This program is suitable for you who wants to get rid of your fat and lose their weight.",
+      "The physiological process of fat burning occurs when fats are liberated from adipocytes into circulation to supply the needed energy.",
   },
   {
     image: <svg width="20" height="16" viewBox="0 0 20 16"  xmlns="http://www.w3.org/2000/svg">
@@ -47,7 +47,7 @@ export const programsData = [
     ,
     heading: "Health Fitness",
     details:
-      "This programs is designed for those who exercises only for their body fitness not body building.",
+      "Health fitness involves activity of some sort that stimulates various systems of the body and maintains a certain condition within the body.",
   },
 ];
 

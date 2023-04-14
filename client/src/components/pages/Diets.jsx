@@ -2,20 +2,20 @@ import React, {  useState,useEffect } from 'react';
 import { Box, Button, Stack, TextField, Typography } from "@mui/material";
 import Pagination from "@mui/material/Pagination";
 import DietCard from './DietCard.jsx'
-import HorizontalScrollbarexercise from "./HorizontalScrollbarexercise.js";
 import { useNavigate } from "react-router-dom";
 const Diets = ({ apidata }) => {
+  const mobile = window.innerWidth <= 768 ? true : false;
   const navigate = useNavigate();
   const userValid = ()=>{
     let token = localStorage.getItem("userdbtoken");
-    if(token){
-      console.log(token)
-    }else{
+    if(!token){
       navigate("/error")
     }
   }
   useEffect(()=>{
     userValid();
+    if (mobile) window.scrollTo({ top: 1200, left: 100, behavior: "smooth" });
+    else window.scrollTo({ top: 800, left: 100, behavior: "smooth" });
   },[]);
   const [data] = useState(apidata);
   const [diet, setDiet] = useState(apidata);
@@ -56,7 +56,7 @@ const Diets = ({ apidata }) => {
       if (search === "all") {
         setDiet(data);
       }
-      else if (search === "protien") {
+      else if (search === "protein") {
           setDiet(data.sort(sort_by('protein_g', true, parseInt)));
       }
       else if (search === "carb"||search === "carbohydrate") {

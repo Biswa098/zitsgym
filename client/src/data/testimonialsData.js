@@ -1,25 +1,25 @@
-import image1 from "../assets/t-image1.png";
-import image2 from "../assets/t-image2.jpg";
-import image3 from "../assets/t-image3.jpg";
+import image1 from "../assets/t-image1.jpeg";
+import image2 from "../assets/t-image2.jpeg";
+import image3 from "../assets/t-image3.jpeg";
 
 export const testimonialsData = [
   {
     image: image1,
     review:
-      "I made the right choice by choosing THE FITNESS ZONE and by choosing the right plan and program I already achieved my ideal body!",
-    name: 'MATHEW HENDRICKSON',
-    status : 'ENTREPRENEUR'
+      "The UI is really smooth. Amazing collection of exercises and diets!",
+    name: 'ARMAAN MOHANTY',
+    status : 'USER'
   },
   {
     image: image2,
-    review: "I made the right choice by choosing THE FITNESS ZONE and by choosing the right plan and program I already achieved my ideal body!",
-    name: 'JOHN KEVIN',
+    review: "The Fitness Zone is a handy site for all fitness resources. Keep updating the site time to time!",
+    name: 'BISWAJIT DASH',
     status: 'USER'
   },
   {
     image : image3,
-    review:"I made the right choice by choosing THE FITNESS ZONE and by choosing the right plan and program I already achieved my ideal body!",
-    name: 'FRANKLIN',
-    status: "GYM RAT"
+    review:"Recommend The Fitness Zone to all and start your fitness journey with this awesome site!",
+    name: 'SUSRUTA PUHANA',
+    status: "USER"
   }
 ];

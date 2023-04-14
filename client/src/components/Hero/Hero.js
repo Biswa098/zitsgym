@@ -53,8 +53,8 @@ const Hero = () => {
             <span>Diets</span>
           </div>
           <div>
-            <span><NumberCounter end={900} start={600} delay='4' preFix='+'/></span>
-            <span>Gym Rats</span>
+            <span><NumberCounter end={100} start={50} delay='4' preFix='+'/></span>
+            <span>User</span>
           </div>
         </div>
         {/* hero button */}
@@ -64,7 +64,7 @@ const Hero = () => {
         </div>
       </div>
       <div className="right-h">
-        <button className="btn shake">Explore</button>
+        <button className="btn shake" onClick={()=>{window.scrollTo({ top: 4000, left: 100, behavior: 'smooth' })}}>Contact Us</button>
         <motion.div
           initial={{ right: "1rem" }}
           whileInView={{ right: "4rem" }}

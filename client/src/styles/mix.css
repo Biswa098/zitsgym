@@ -134,3 +134,103 @@ form .btnload{
     color:#718096 ;
     border-bottom: 2px solid #8694a8;
 }
+.pani {
+    position: relative;
+    padding: 20px 50px;
+    display: block;
+    text-decoration: none;
+    text-transform: uppercase;
+    width: 200px;
+    overflow: hidden;
+    border-radius: 40px;
+    margin-left:2.5rem
+  }
+.r {
+    position: relative;
+    padding: 20px 50px;
+    display: flex;
+    text-decoration: none;
+    text-transform: uppercase;
+    width: 200px;
+    overflow: hidden;
+    border-radius: 40px;
+   justify-content: center;
+  }
+  
+  .pani span {
+    position: relative;
+    color: #fff;
+    font-size: 20px;
+    font-family: Arial;
+    letter-spacing: 8px;
+    z-index: 1;
+    cursor:progress;
+  }
+  
+  .pani .liquid {
+    position: absolute;
+    top: -80px;
+    left: 0;
+    width: 200px;
+    height: 200px;
+    background: var(--orange);
+    box-shadow: inset 0 0 50px rgba(0, 0, 0, .5);
+    transition: .5s;
+  }
+  
+  .pani .liquid::after,
+  .pani .liquid::before {
+    content: '';
+    width: 200%;
+    height: 200%;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -75%);
+    background: #000;
+  }
+  
+  .pani .liquid::before {
+    
+    border-radius: 45%;
+    background: transparent;
+    animation: animate 5s linear infinite;
+  }
+  
+  .pani .liquid::after {
+    
+    border-radius: 40%;
+    background: rgba(20, 20, 20, .5);
+    animation: animate 10s linear infinite;
+  }
+  
+  .pani:hover .liquid{
+    top: -120px;
+  }
+  
+  @keyframes animate {
+    0% {
+      transform: translate(-50%, -75%) rotate(0deg);
+    }
+    100% {
+      transform: translate(-50%, -75%) rotate(360deg);
+    }
+  }
+  @media screen and (max-width: 768px) {
+
+    .form_data h1{
+        font-size: 30px;
+        color: var(--orange);
+    }
+    .form_data p{
+        color: #ffffff;
+        font-size: 18px;
+        margin-top:9px;
+        margin-left: 0.5rem;
+    }
+    .pani{
+        margin-left:0.5rem
+    }
+
+  }
+  

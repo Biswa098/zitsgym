@@ -7,17 +7,18 @@ import SearchExercises from "./SearchExercises";
 import { useNavigate } from "react-router-dom";
 
 const Exercises = ({apidata}) => {
+  const mobile = window.innerWidth <= 768 ? true : false;
   const navigate = useNavigate();
   const userValid = ()=>{
     let token = localStorage.getItem("userdbtoken");
-    if(token){
-      console.log(token)
-    }else{
+    if(!token){
       navigate("/error")
     }
   }
   useEffect(()=>{
     userValid();
+    if (mobile) window.scrollTo({ top: 1200, left: 100, behavior: "smooth" });
+    else window.scrollTo({ top: 750, left: 100, behavior: "smooth" });
   },[]);
   const [currentPage, setCurrentPage] = useState(1);
   const [exercisesPerPage] = useState(9);
@@ -33,10 +34,9 @@ const Exercises = ({apidata}) => {
   const paginate = (event, value) => {
     setCurrentPage(value);
 
-    window.scrollTo({ top: 800, behavior: "smooth" });
+    window.scrollTo({ top: 1700, behavior: "smooth" });
   };
 
-  if (!currentExercises.length) return <Loader />;
   return (
     <>
     <SearchExercises exercises={apidata} setExercises={setExercises} bodyPart={bodyPart} setBodyPart={setBodyPart}/>
@@ -56,6 +56,7 @@ const Exercises = ({apidata}) => {
       >
         Showing Results
       </Typography> 
+      { !currentExercises.length ? <Loader />:<>
       <Stack
         direction="row"
         sx={{ gap: { lg: "107px", xs: "50px" } }}
@@ -79,6 +80,7 @@ const Exercises = ({apidata}) => {
           />
         )}
       </Stack>
+      </>}
     </Box>
     </>
   );

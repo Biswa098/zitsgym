@@ -38,7 +38,7 @@ const Reason = () => {
           </div>
           <div>
             <img src={tick} alt="" />
-            <span>RELIABLE PARTNERS</span>
+            <span>TRUSTED</span>
           </div>
         </div>
         <span
@@ -47,7 +47,7 @@ const Reason = () => {
             fontWeight: "normal",
           }}
         >
-          OUR PARTNERS
+          WE PREFER
         </span>
         <div className="partners">
           <img src={nb} alt="" />

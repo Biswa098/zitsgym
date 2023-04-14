@@ -1,13 +1,20 @@
 import React, { useState, useEffect } from "react";
 import "../../styles/mix.css";
 import { ToastContainer, toast } from "react-toastify";
-import { resisterfunction } from "../../services/Apis";
+import { editfunction } from "../../services/Apis";
 import { useNavigate } from "react-router-dom";
-const Resister = () => {
+const Edit = () => {
     const mobile = window.innerWidth <= 768 ? true : false;
+  const userValid = ()=>{
+    let token = localStorage.getItem("userdbtoken");
+    if(!token){
+      navigate("/error")
+    }
+  };
   useEffect(() => {
     if (mobile) window.scrollTo({ top: 1250, left: 100, behavior: "smooth" });
     else window.scrollTo({ top: 800, left: 100, behavior: "smooth" });
+     userValid();
   }, []);
   const [passshow, setPassshow] = useState(true);
 
@@ -54,7 +61,7 @@ const Resister = () => {
     } else if (height > 300 || height < 60) {
       toast.error("Enter your Valid Height");
     } else {
-      const response = await resisterfunction(inputdata);
+      const response = await editfunction(inputdata);
       if (response.status === 200) {
         setInputdat({
           ...inputdata,
@@ -65,9 +72,10 @@ const Resister = () => {
           bw: "",
           height: "",
         });
+        localStorage.setItem("profile",JSON.stringify(response.data.userresister));
         toast.success("Resistration Succesfull");
         setTimeout(() => {
-          navigate("/");
+          navigate("/profile");
         }, 3000);
       } else {
         toast.error(response.response.data.error);
@@ -80,8 +88,8 @@ const Resister = () => {
       <section>
         <div className="form_data">
           <div className="form_heading">
-            <h1>Sign Up</h1>
-            <p>We are glad that you will be using THE FITNESS ZONE !</p>
+            <h1>Edit Profile</h1>
+            <p>Fill data correctly !</p>
           </div>
           <form action="">
             <div className="form_input">
@@ -101,7 +109,7 @@ const Resister = () => {
                 name="email"
                 id=""
                 onChange={handelChange}
-                placeholder="enter your email addresss"
+                placeholder="Confirm your email addresss"
               />
             </div>
             <div className="form_input">
@@ -155,7 +163,7 @@ const Resister = () => {
               </div>
             </div>
             <div className="pani r" onClick={handelSubmit}>
-              <span>SignUp</span>
+              <span>Edit</span>
               <div className="liquid"></div>
             </div>
           </form>
@@ -166,4 +174,4 @@ const Resister = () => {
   );
 };
 
-export default Resister;
+export default Edit;

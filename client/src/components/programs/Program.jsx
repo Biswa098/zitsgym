@@ -17,7 +17,6 @@ const Program = () => {
                     {program.image}
                     <span>{program.heading}</span>
                     <span style={{fontSize:"1rem"}}>{program.details}</span>
-                    <div className="join-now"><span>isn't it cool?</span><img src={RightArrow} alt="" /></div>
                 </div>
             ))}
         </div>

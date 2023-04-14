@@ -7,14 +7,13 @@ const Join = () => {
   const navigate = useNavigate();
   const userValid = ()=>{
     let token = localStorage.getItem("userdbtoken");
-    if(token){
-      console.log(token)
-    }else{
+    if(!token){
       navigate("/error")
     }
   }
   useEffect(()=>{
     userValid();
+    window.scrollTo({ top: 0, left: 100, behavior: 'smooth' })
   },[]);
   const form = useRef();
   const sendEmail = (e) => {
