@@ -16,6 +16,8 @@ import Resister from './components/pages/Resister';
 import Otp from './components/pages/Otp'
 import Error from './components/pages/Error';
 import Edit from './components/pages/Edit';
+import Reset from "./components/pages/Reset";
+import Otpreset from "./components/pages/Otpreset";
 import 'react-toastify/dist/ReactToastify.css';
 function App() {
   const [ apidata1, setApidata1 ] = useState([]);
@@ -25,30 +27,30 @@ function App() {
       const res = await fetch("https://zitsgym.onrender.com/api/v2/exercises");
       var data = await res.json();
       setApidata1(data);
-      console.log(data);
     }
     async function fetchDiets() {
       const res = await fetch("https://zitsgym.onrender.com/api/v1/diets");
       var data = await res.json();
       setApidata2(data);
-      console.log(data);
     }
     fetchExercises();
     fetchDiets();
   }, []);
   return (
     <div className="App">
-      <Hero />
         <Routes>
           <Route path="/" element={<Login />} />
+          <Route path="/reset" element={<Reset />} />
           <Route path="/resister" element={<Resister />} />
           <Route path="/otp" element={<Otp />} />
+          <Route path="/otpreset" element={<Otpreset />} />
           <Route path="/error" element={<Error />} />
-          <Route path="/edit" element={<Edit />} />
+          <Route path="/edit" element={<><Hero /><Edit /></>} />
           <Route
             path="/home"
             element={
               <>
+                <Hero />
                 <Program />
                 <Reason />
                 <Testimonial />
@@ -56,10 +58,10 @@ function App() {
               </>
             }
           />
-          <Route path="/exercises" element={<Exercises apidata={apidata1} />} />
-          <Route path="/exercise/:id" element={<ExerciseDetail />} />
-          <Route path="/diets" element={<Diets apidata={apidata2} />} />
-          <Route path="/profile" element={<Profile  />} />
+          <Route path="/exercises" element={<><Hero /><Exercises apidata={apidata1} /></>} />
+          <Route path="/exercise/:id" element={<><Hero /><ExerciseDetail /></>} />
+          <Route path="/diets" element={<><Hero /><Diets apidata={apidata2} /></>} />
+          <Route path="/profile" element={<><Hero /><Profile  /></>} />
         </Routes>
       <Footer />
     </div>

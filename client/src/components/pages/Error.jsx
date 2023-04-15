@@ -1,14 +1,6 @@
-import React, { useEffect } from 'react'
 import { NavLink } from 'react-router-dom';
 import '../../styles/mix.css'
 const Error = () => {
-  const mobile = window.innerWidth <= 768 ? true : false;
-  useEffect(() => {
-    if(mobile)
-    window.scrollTo({ top: 1200, left: 100, behavior: 'smooth' })
-    else
-    window.scrollTo({ top: 800, left: 100, behavior: 'smooth' })
-   }, []);
   return (
     <>
     <section>

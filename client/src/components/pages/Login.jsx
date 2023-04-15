@@ -4,24 +4,31 @@ import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { sentOtpFunction } from "../../services/Apis";
+import CircularProgress from '@mui/material/CircularProgress';
 const Login = () => {
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const mobile = window.innerWidth <= 768 ? true : false;
+  const [spin,setSpin] = useState(false);
+  const [passshow, setPassshow] = useState(true);
   useEffect(() => {
-    if (mobile) window.scrollTo({ top: 1200, left: 100, behavior: "smooth" });
-    else window.scrollTo({ top: 800, left: 100, behavior: "smooth" });
+    window.scrollTo({ top: 0, left: 100, behavior: "smooth" });
   }, []);
-
   const sendOtp = async (e) => {
     e.preventDefault();
     if (email === "") {
       toast.error("Enter Your Email");
     } else if (!email.includes("@")) {
       toast.error("Enter Valid Email");
-    } else {
+    } else if (password === "") {
+      toast.error("Enter your Password");
+    } else if (password.length < 6) {
+      toast.error("Password Must be 6 digit");
+    }else {
+      setSpin(true);
       const data = {
         email: email,
+        password: password
       };
       const response = await sentOtpFunction(data);
       if (response.status === 200) {
@@ -30,9 +37,13 @@ const Login = () => {
           navigate("/otp", { state: email });
         }, 3000);
       } else {
-        toast.error("Something Went Wrong");
+         setSpin(false);
+        toast.error(response.response.data.error);
       }
     }
+  };
+  const sendOtpfake = async (e) => {
+    e.preventDefault();
   };
 
   return (
@@ -53,9 +64,27 @@ const Login = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter your email addresss"
               />
+              <label htmlFor="password">Password</label>
+              <div className="two">
+                <input
+                  type={passshow ? "password" : "text"}
+                  name="password"
+                  id="p"
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="enter your Password"
+                />
+                <div
+                  className="showpass"
+                  onClick={() => {
+                    setPassshow(!passshow);
+                  }}
+                >
+                  {passshow ? "Show" : "Hide"}
+                </div>
+              </div>
             </div>
-            <div className="pani" onClick={sendOtp}>
-              <span>Login</span>
+            <div className="pani" onClick={spin?sendOtpfake:sendOtp}>
+              {spin?<CircularProgress style={{marginLeft:"2rem",height:"1.5rem",width:"1.5rem"}}/>:<span>Login</span>}
               <div className="liquid" ></div>
             </div>
             <p>
@@ -65,6 +94,14 @@ const Login = () => {
                 to="/resister"
               >
                 Sign up
+              </NavLink>
+            </p>
+            <p>
+              <NavLink
+                style={{ textDecoration: "none", color: "var(--orange)" }}
+                to="/reset"
+              >
+                Forgot Password ?
               </NavLink>
             </p>
           </form>

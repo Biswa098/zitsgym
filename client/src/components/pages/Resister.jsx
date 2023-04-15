@@ -1,14 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "../../styles/mix.css";
 import { ToastContainer, toast } from "react-toastify";
 import { resisterfunction } from "../../services/Apis";
 import { useNavigate } from "react-router-dom";
+import CircularProgress from '@mui/material/CircularProgress';
 const Resister = () => {
     const mobile = window.innerWidth <= 768 ? true : false;
-  useEffect(() => {
-    if (mobile) window.scrollTo({ top: 1250, left: 100, behavior: "smooth" });
-    else window.scrollTo({ top: 800, left: 100, behavior: "smooth" });
-  }, []);
+    const [spin,setSpin] = useState(false);
   const [passshow, setPassshow] = useState(true);
 
   const [inputdata, setInputdat] = useState({
@@ -33,6 +31,8 @@ const Resister = () => {
 
     if (name === "") {
       toast.error("Enter your Name");
+    } else if (( /[0-9]/.test(name))) {
+      toast.error("Enter Valid Name");
     } else if (email === "") {
       toast.error("Enter your Email");
     } else if (!email.includes("@")) {
@@ -54,6 +54,7 @@ const Resister = () => {
     } else if (height > 300 || height < 60) {
       toast.error("Enter your Valid Height");
     } else {
+      setSpin(true);
       const response = await resisterfunction(inputdata);
       if (response.status === 200) {
         setInputdat({
@@ -70,9 +71,13 @@ const Resister = () => {
           navigate("/");
         }, 3000);
       } else {
+        setSpin(false);
         toast.error(response.response.data.error);
       }
     }
+  };
+  const handelSubmitfake = async (e) => {
+    e.preventDefault();
   };
 
   return (
@@ -154,8 +159,8 @@ const Resister = () => {
                 />
               </div>
             </div>
-            <div className="pani r" onClick={handelSubmit}>
-              <span>SignUp</span>
+            <div className="pani r" onClick={spin?handelSubmitfake:handelSubmit}>
+            {spin?<CircularProgress style={{marginLeft:0,height:"1.5rem",width:"1.5rem"}}/>:<span>SignUp</span>}
               <div className="liquid"></div>
             </div>
           </form>

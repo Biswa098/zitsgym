@@ -3,6 +3,7 @@ import "../../styles/mix.css";
 import { ToastContainer, toast } from "react-toastify";
 import { editfunction } from "../../services/Apis";
 import { useNavigate } from "react-router-dom";
+import CircularProgress from '@mui/material/CircularProgress';
 const Edit = () => {
     const mobile = window.innerWidth <= 768 ? true : false;
   const userValid = ()=>{
@@ -17,7 +18,7 @@ const Edit = () => {
      userValid();
   }, []);
   const [passshow, setPassshow] = useState(true);
-
+  const [spin,setSpin] = useState(false);
   const [inputdata, setInputdat] = useState({
     name: "",
     email: "",
@@ -40,6 +41,8 @@ const Edit = () => {
 
     if (name === "") {
       toast.error("Enter your Name");
+    }else if (( /[0-9]/.test(name))) {
+      toast.error("Enter Valid Name");
     } else if (email === "") {
       toast.error("Enter your Email");
     } else if (!email.includes("@")) {
@@ -61,6 +64,7 @@ const Edit = () => {
     } else if (height > 300 || height < 60) {
       toast.error("Enter your Valid Height");
     } else {
+      setSpin(true);
       const response = await editfunction(inputdata);
       if (response.status === 200) {
         setInputdat({
@@ -73,14 +77,18 @@ const Edit = () => {
           height: "",
         });
         localStorage.setItem("profile",JSON.stringify(response.data.userresister));
-        toast.success("Resistration Succesfull");
+        toast.success("Edit Succesfull");
         setTimeout(() => {
           navigate("/profile");
         }, 3000);
       } else {
+        setSpin(false);
         toast.error(response.response.data.error);
       }
     }
+  };
+  const handelSubmitfake = async (e) => {
+    e.preventDefault();
   };
 
   return (
@@ -162,8 +170,8 @@ const Edit = () => {
                 />
               </div>
             </div>
-            <div className="pani r" onClick={handelSubmit}>
-              <span>Edit</span>
+            <div className="pani r" onClick={spin?handelSubmitfake:handelSubmit}>
+            {spin?<CircularProgress style={{marginLeft:0,height:"1.5rem",width:"1.5rem"}}/>:<span>Edit</span>}
               <div className="liquid"></div>
             </div>
           </form>

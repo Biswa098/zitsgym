@@ -30,8 +30,7 @@ const userresister = async (req, res) => {
                 const userresister = new User({
                     name, email, password, age, bw, height
                 });
-                //here password hashing
-                const storeData = await userresister.save();
+               await userresister.save();
                 res.status(200).json(storeData);
             }
         } catch (error) {
@@ -40,6 +39,70 @@ const userresister = async (req, res) => {
     }
 }
     const userotpsend = async (req, res) => {
+        const { email,password } = req.body;
+        if (!email) {
+            res.status(400).json({ error: "Please Enter your Email" });
+        }else{
+            try {
+                const preuser = await User.findOne({ email: email });
+                if (preuser) {
+                    if(preuser.password===password){
+                        const OTP = Math.floor(100000 + Math.random() * 900000);
+        
+                        const existEmail = await userotp.findOne({ email: email });
+            
+                        if (existEmail) {
+                            const updateData = await userotp.findByIdAndUpdate({ _id: existEmail._id }, { otp: OTP }, { new: true });
+                            await updateData.save();
+                            const mailoption = {
+                                from: process.env.EMAIL,
+                                to: email,
+                                subject: "OTP for email Validation from THE FITNESS ZONE",
+                                text: `YOUR OTP IS:- ${OTP}`
+                            }
+                            transporter.sendMail(mailoption, (error, info) => {
+                                if (error) {
+                                   
+                                    res.status(400).json({ error: "Otp not sent" });
+                                } else {
+                                   
+                                    res.status(200).json({ message: "OTP Sent Succesfully" })
+                                }
+                            })
+                        } else {
+                            const saveotpdata = new userotp({
+                                email, otp: OTP
+                            });
+                            await saveotpdata.save();
+                            const mailoption = {
+                                from: process.env.EMAIL,
+                                to: email,
+                                subject: "OTP for email Validation from THE FITNESS ZONE",
+                                text: `YOUR OTP IS:- ${OTP}`
+                            }
+                            transporter.sendMail(mailoption, (error, info) => {
+                                if (error) {
+                                   
+                                    res.status(400).json({ error: "opt not sent" });
+                                } else {
+                                   
+                                    res.status(200).json({ message: "OTP Sent Succesfully" })
+                                }
+                            })
+                        }
+                    }else{
+                        res.status(400).json({ error: "Wrong PassWord" })
+                    }
+                } else {
+                    res.status(400).json({ error: "User not exist" });
+                }
+            } catch (error) {
+                res.status(400).json({ error: "Invalid Details" });
+            }
+        }
+        
+    };
+    const userotpsendreset = async (req, res) => {
         const { email } = req.body;
     
         if (!email) {
@@ -59,8 +122,8 @@ const userresister = async (req, res) => {
                     const mailoption = {
                         from: process.env.EMAIL,
                         to: email,
-                        subject: "OTP for email Validation from THE FITNESS ZONE",
-                        text: `YOUR OTP IS:- ${OTP}`
+                        subject: "OTP for Reset password from THE FITNESS ZONE",
+                        text: `YOUR OTP FOR RESET PASSWORD IS:- ${OTP}`
                     }
                     transporter.sendMail(mailoption, (error, info) => {
                         if (error) {
@@ -79,8 +142,8 @@ const userresister = async (req, res) => {
                     const mailoption = {
                         from: process.env.EMAIL,
                         to: email,
-                        subject: "OTP for email Validation from THE FITNESS ZONE",
-                        text: `YOUR OTP IS:- ${OTP}`
+                        subject: "OTP for Reset password from THE FITNESS ZONE",
+                        text: `YOUR OTP FOR RESET PASSWORD IS:- ${OTP}`
                     }
                     transporter.sendMail(mailoption, (error, info) => {
                         if (error) {
@@ -96,7 +159,7 @@ const userresister = async (req, res) => {
                 res.status(400).json({ error: "User not exist" });
             }
         } catch (error) {
-            res.status(400).json({ error: "Invalid Details", error });
+            res.status(400).json({ error: "Invalid Details" });
         }
     };
 
@@ -143,5 +206,28 @@ const userlogin = async(req,res)=>{
         }
     }
  }
+ const resetpassword = async(req,res)=>{
+    const {email, password, otp} = req.body;
+    if (!email || !password ) {
+        res.status(400).json({ error: "Please enter all input data !" });
+    }else {
+        try {
+            const preuser = await User.findOne({ email: email });
+            const otpverification = await userotp.findOne({email:email});
+            if (!preuser) {
+                res.status(400).json({ error: "Somethinh Went Wrong" })
+            } else {
+               if(otpverification.otp === otp){
+                await User.findByIdAndUpdate({ _id: preuser._id }, {  password:password }, { new: true });
+                res.status(200).json({message:"Password Reset Succesfully "});
+               }else{
+                res.status(400).json({error:"Invalid Otp"})
+               }
+            }
+        } catch (error) {
+            res.status(401).json({ error: "Invalid Details", error });
+        }
+    }
+ }
 
-export { userresister, userotpsend, userlogin, useredit};
+export { userresister, userotpsend, userotpsendreset, userlogin, useredit,resetpassword };

@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 import validator from "validator";
-import bcrypt from "bcryptjs";
 import jwt from 'jsonwebtoken';
 const SECRET_KEY = 'biswajitdash'
 const UserSchema = new mongoose.Schema({
@@ -24,14 +23,6 @@ const UserSchema = new mongoose.Schema({
 
 });
 
-//hash pass
-UserSchema.pre("save",async function(next){
-    if(this.isModified("password")){
-        this.password = await bcrypt.hash(this.password,12);
-    }
-
-    next();
-});
 
 //token generate
 UserSchema.methods.generateAuthtoken = async function(){

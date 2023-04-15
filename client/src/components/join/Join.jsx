@@ -55,7 +55,7 @@ const Join = () => {
             name="user_email"
             placeholder="Enter Your Email Here"
           />
-          <button className="btn btn-j">Join</button>
+          <button className="btn btn-j">Surprise Me</button>
         </form>
       </div>
     </div>
