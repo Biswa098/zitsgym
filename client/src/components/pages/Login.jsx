@@ -35,7 +35,7 @@ const Login = () => {
         toast.success(response.data.message);
         setTimeout(() => {
           navigate("/otp", { state: email });
-        }, 3000);
+        }, 2000);
       } else {
          setSpin(false);
         toast.error(response.response.data.error);

@@ -69,7 +69,7 @@ const Resister = () => {
         toast.success("Resistration Succesfull");
         setTimeout(() => {
           navigate("/");
-        }, 3000);
+        }, 2000);
       } else {
         setSpin(false);
         toast.error(response.response.data.error);

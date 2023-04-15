@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import CircularProgress from '@mui/material/CircularProgress';
 const Edit = () => {
     const mobile = window.innerWidth <= 768 ? true : false;
+    const [data,setData] = useState({});
   const userValid = ()=>{
     let token = localStorage.getItem("userdbtoken");
     if(!token){
@@ -16,6 +17,8 @@ const Edit = () => {
     if (mobile) window.scrollTo({ top: 1250, left: 100, behavior: "smooth" });
     else window.scrollTo({ top: 800, left: 100, behavior: "smooth" });
      userValid();
+     let profile = localStorage.getItem("profile");
+     setData(JSON.parse(profile));
   }, []);
   const [passshow, setPassshow] = useState(true);
   const [spin,setSpin] = useState(false);
@@ -80,7 +83,7 @@ const Edit = () => {
         toast.success("Edit Succesfull");
         setTimeout(() => {
           navigate("/profile");
-        }, 3000);
+        }, 2000);
       } else {
         setSpin(false);
         toast.error(response.response.data.error);
@@ -101,27 +104,29 @@ const Edit = () => {
           </div>
           <form action="">
             <div className="form_input">
-              <label htmlFor="fname">Name</label>
+              <label htmlFor="fname">Change Name</label>
               <input
                 type="text"
                 name="name"
                 id=""
                 onChange={handelChange}
                 placeholder="enter your Name "
+                defaultValue={data.name}
               />
             </div>
             <div className="form_input">
-              <label htmlFor="email">Email</label>
+              <label htmlFor="email">Change Email</label>
               <input
                 type="email"
                 name="email"
                 id=""
                 onChange={handelChange}
                 placeholder="Confirm your email addresss"
+                defaultValue={data.email}
               />
             </div>
             <div className="form_input">
-              <label htmlFor="password">Password</label>
+              <label htmlFor="password">Change Password</label>
               <div className="two">
                 <input
                   type={passshow ? "password" : "text"}
@@ -140,33 +145,36 @@ const Edit = () => {
                 </div>
               </div>
               <div className="form_input">
-                <label htmlFor="age">Age</label>
+                <label htmlFor="age">Change Age</label>
                 <input
                   type="number"
                   name="age"
                   id=""
                   onChange={handelChange}
                   placeholder="enter your Age"
+                  defaultValue={data.age}
                 />
               </div>
               <div className="form_input">
-                <label htmlFor="bw">Body Weight</label>
+                <label htmlFor="bw">Change Body Weight</label>
                 <input
                   type="number"
                   name="bw"
                   id=""
                   onChange={handelChange}
                   placeholder="enter your Weight in kg"
+                  defaultValue={data.bw}
                 />
               </div>
               <div className="form_input">
-                <label htmlFor="height">Height</label>
+                <label htmlFor="height">Change Height</label>
                 <input
                   type="number"
                   name="height"
                   id=""
                   onChange={handelChange}
                   placeholder="enter your Height in cm"
+                  defaultValue={data.height}
                 />
               </div>
             </div>
