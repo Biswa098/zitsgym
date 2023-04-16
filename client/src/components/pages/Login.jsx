@@ -51,7 +51,7 @@ const Login = () => {
       <section>
         <div className="form_data">
           <div className="form_heading">
-            <h1>Welcom back,Log in</h1>
+            <h1>Welcome back,Log in</h1>
             <p>Hi,we are glad to see you back. Please login.</p>
           </div>
           <form action="">

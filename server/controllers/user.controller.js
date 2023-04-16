@@ -23,15 +23,14 @@ const userresister = async (req, res) => {
     }else {
         try {
             const preuser = await User.findOne({ email: email });
-    
             if (preuser) {
                 res.status(400).json({ error: "Already Existed User" })
             } else {
                 const userresister = new User({
                     name, email, password, age, bw, height
                 });
-               await userresister.save();
-                res.status(200).json(storeData);
+                userresister.save();
+                res.status(200).json(userresister);
             }
         } catch (error) {
             res.status(400).json({ error: "Invalid Details", error });
@@ -194,7 +193,6 @@ const userlogin = async(req,res)=>{
     }else {
         try {
             const preuser = await User.findOne({ email: email });
-    
             if (!preuser) {
                 res.status(400).json({ error: "Somethinh Went Wrong" })
             } else {

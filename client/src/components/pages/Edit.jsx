@@ -22,34 +22,21 @@ const Edit = () => {
   }, []);
   const [passshow, setPassshow] = useState(true);
   const [spin,setSpin] = useState(false);
-  const [inputdata, setInputdat] = useState({
-    name: "",
-    email: "",
-    password: "",
-    age: "",
-    bw: "",
-    height: "",
-  });
-
+  const [name,setName] = useState(data.name);
+  const [email] = useState(data.email);
+  const [password,setPassword] = useState("");
+  const [age,setAge] = useState(data.age);
+  const [bw,setBw] = useState(data.bw);
+  const [height,setHeight] = useState(data.height);
   const navigate = useNavigate();
-
-  const handelChange = (e) => {
-    const { name, value } = e.target;
-    setInputdat({ ...inputdata, [name]: value });
-  };
-
   const handelSubmit = async (e) => {
+    let profile = localStorage.getItem("profile");
+     const data=(JSON.parse(profile));
     e.preventDefault();
-    const { name, email, password, age, bw, height } = inputdata;
-
     if (name === "") {
       toast.error("Enter your Name");
     }else if (( /[0-9]/.test(name))) {
       toast.error("Enter Valid Name");
-    } else if (email === "") {
-      toast.error("Enter your Email");
-    } else if (!email.includes("@")) {
-      toast.error("Enter Valid Email");
     } else if (password === "") {
       toast.error("Enter your Password");
     } else if (password.length < 6) {
@@ -68,17 +55,13 @@ const Edit = () => {
       toast.error("Enter your Valid Height");
     } else {
       setSpin(true);
-      const response = await editfunction(inputdata);
+      let data1 = {
+        name:name?name:data.name,email:email?email:data.email,password:password,age:age?age:data.age,bw:bw?bw:data.bw,height:height?height:data.height
+      }
+      console.log(data1)
+      const response = await editfunction(data1);
+      console.log(response);
       if (response.status === 200) {
-        setInputdat({
-          ...inputdata,
-          name: "",
-          email: "",
-          password: "",
-          age: "",
-          bw: "",
-          height: "",
-        });
         localStorage.setItem("profile",JSON.stringify(response.data.userresister));
         toast.success("Edit Succesfull");
         setTimeout(() => {
@@ -109,20 +92,9 @@ const Edit = () => {
                 type="text"
                 name="name"
                 id=""
-                onChange={handelChange}
+                onChange={(e)=>{setName(e.target.value)}}
                 placeholder="enter your Name "
                 defaultValue={data.name}
-              />
-            </div>
-            <div className="form_input">
-              <label htmlFor="email">Change Email</label>
-              <input
-                type="email"
-                name="email"
-                id=""
-                onChange={handelChange}
-                placeholder="Confirm your email addresss"
-                defaultValue={data.email}
               />
             </div>
             <div className="form_input">
@@ -132,7 +104,7 @@ const Edit = () => {
                   type={passshow ? "password" : "text"}
                   name="password"
                   id=""
-                  onChange={handelChange}
+                  onChange={(e)=>{setPassword(e.target.value)}}
                   placeholder="enter your Password"
                 />
                 <div
@@ -150,7 +122,7 @@ const Edit = () => {
                   type="number"
                   name="age"
                   id=""
-                  onChange={handelChange}
+                  onChange={(e)=>{setAge(e.target.value)}}
                   placeholder="enter your Age"
                   defaultValue={data.age}
                 />
@@ -161,7 +133,7 @@ const Edit = () => {
                   type="number"
                   name="bw"
                   id=""
-                  onChange={handelChange}
+                  onChange={(e)=>{setBw(e.target.value)}}
                   placeholder="enter your Weight in kg"
                   defaultValue={data.bw}
                 />
@@ -172,7 +144,7 @@ const Edit = () => {
                   type="number"
                   name="height"
                   id=""
-                  onChange={handelChange}
+                  onChange={(e)=>{setHeight(e.target.value)}}
                   placeholder="enter your Height in cm"
                   defaultValue={data.height}
                 />

@@ -56,6 +56,7 @@ const Resister = () => {
     } else {
       setSpin(true);
       const response = await resisterfunction(inputdata);
+      console.log(response)
       if (response.status === 200) {
         setInputdat({
           ...inputdata,
